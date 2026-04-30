@@ -1,112 +1,77 @@
-const PastebinAPI = require('pastebin-js');
-const pastebin = new PastebinAPI('EMWTMkQAVfJa9kM-MRUrxd5Oku1U7pgL');
-const { makeid } = require('./id');
 const express = require('express');
-const fs = require('fs');
-let router = express.Router();
+const { default: makeWASocket, useMultiFileAuthState, Browsers, delay, makeCacheableSignalKeyStore } = require('@whiskeysockets/baileys');
 const pino = require('pino');
-const {
-    default: Arslan_Tech,
-    useMultiFileAuthState,
-    delay,
-    makeCacheableSignalKeyStore,
-    Browsers
-} = require('@whiskeysockets/baileys');
+const fs = require('fs');
+const { makeid } = require('./id');   // make sure id.js exports makeid()
+let router = express.Router();
 
-function removeFile(FilePath) {
-    if (!fs.existsSync(FilePath)) return false;
-    fs.rmSync(FilePath, { recursive: true, force: true });
+function rmTemp(dir) {
+    if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
 }
 
 router.get('/', async (req, res) => {
-    const id = makeid();
-    let num = req.query.number;
+    let number = req.query.number;
+    if (!number) return res.status(400).json({ error: "number required" });
+
+    let sessionId = makeid(6);
+    const tempFolder = `./temp/${sessionId}`;
     
-    async function Arslan_MD_PAIR_CODE() {
-        const { state, saveCreds } = await useMultiFileAuthState('./temp/' + id);
-        try {
-            let Pair_Code_By_Arslan_Tech = Arslan_Tech({
-                auth: {
-                    creds: state.creds,
-                    keys: makeCacheableSignalKeyStore(state.keys, pino({ level: 'fatal' }).child({ level: 'fatal' })),
-                },
-                printQRInTerminal: false,
-                logger: pino({ level: 'fatal' }).child({ level: 'fatal' }),
-                browser: Browsers.macOS('Chrome')
-            });
+    try {
+        const { state, saveCreds } = await useMultiFileAuthState(tempFolder);
+        const sock = makeWASocket({
+            auth: {
+                creds: state.creds,
+                keys: makeCacheableSignalKeyStore(state.keys, pino({ level: 'silent' })),
+            },
+            logger: pino({ level: 'silent' }),
+            browser: Browsers.macOS('Chrome'),
+            printQRInTerminal: false,
+        });
 
-            if (!Pair_Code_By_Arslan_Tech.authState.creds.registered) {
-                await delay(1500);
-                num = num.replace(/[^0-9]/g, '');
-                const code = await Pair_Code_By_Arslan_Tech.requestPairingCode(num);
-                if (!res.headersSent) {
-                    await res.send({ code });
-                }
-            }
-
-            Pair_Code_By_Arslan_Tech.ev.on('creds.update', saveCreds);
-            Pair_Code_By_Arslan_Tech.ev.on('connection.update', async (s) => {
-                const { connection, lastDisconnect } = s;
-                if (connection === 'open') {
-                    await delay(5000);
-                    let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
-                    await delay(800);
-                    let b64data = Buffer.from(data).toString('base64');
-                    let session = await Pair_Code_By_Arslan_Tech.sendMessage(Pair_Code_By_Arslan_Tech.user.id, { text: 'MUZAMIL-MD~' + b64data });
-
-                    let Arslan_MD_TEXT = `
+        sock.ev.on('creds.update', saveCreds);
         
-╔════════════════════◇
-║『 SESSION CONNECTED』
-║ ✨ MUZAMIL-MD 🔷
-║ ✨ MUZAMIL-MD OFFICIAL🔷
-╚════════════════════╝
-
-
----
-
-╔════════════════════◇
-║『 YOU'VE CHOSEN MUZAMIL-MD 』
-║ -Set the session ID in Heroku:
-║ - SESSION_ID: 
-╚════════════════════╝
-╔════════════════════◇
-║ 『••• _V𝗶𝘀𝗶𝘁 𝗙𝗼𝗿_H𝗲𝗹𝗽 •••』
-║❍ 𝐎𝐰𝐧𝐞𝐫: 923183928892
-║❍ 𝐑𝐞𝐩𝐨: https://github.com/MUZAMIL-XD/MUZAMIL-MD
-║❍ 𝐖𝐚𝐆𝗿𝐨𝐮𝐩: https://whatsapp.com/channel/0029VbCkm3rAe5VzCYLtNb2u
-║❍ 𝐖𝐚𝐂𝐡𝐚𝐧𝐧𝐞𝐥: https://whatsapp.com/channel/0029VbCkm3rAe5VzCYLtNb2u
-║
-║ ☬ ☬ ☬ ☬
-╚═════════════════════╝
-𒂀 Enjoy MUZAMIL-MD
-
-
----
-
-Don't Forget To Give Star⭐ To My Repo
-______________________________`;
-
-                    await Pair_Code_By_Arslan_Tech.sendMessage(Pair_Code_By_Arslan_Tech.user.id, { text: Toxic_MD_TEXT }, { quoted: session });
-
-                    await delay(100);
-                    await Pair_Code_By_Arslan_Tech.ws.close();
-                    return await removeFile('./temp/' + id);
-                } else if (connection === 'close' && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
-                    await delay(10000);
-                    Arslan_MD_PAIR_CODE();
-                }
-            });
-        } catch (err) {
-            console.log('Service restarted');
-            await removeFile('./temp/' + id);
+        // request pairing code
+        let pairingCode = null;
+        if (!sock.authState.creds.registered) {
+            const cleanNum = number.replace(/\D/g, '');
+            pairingCode = await sock.requestPairingCode(cleanNum);
             if (!res.headersSent) {
-                await res.send({ code: 'Service Currently Unavailable' });
+                res.json({ code: pairingCode });
             }
+        } else {
+            return res.json({ code: "ALREADY_REGISTERED" });
         }
+
+        // listen for connection open to save creds eventually
+        sock.ev.on('connection.update', async (update) => {
+            const { connection, lastDisconnect } = update;
+            if (connection === 'open') {
+                await delay(2000);
+                // save creds as base64 but not mandatory for pairing response
+                let credsPath = `${tempFolder}/creds.json`;
+                if (fs.existsSync(credsPath)) {
+                    let b64 = fs.readFileSync(credsPath).toString('base64');
+                    // optional: send to bot owner or store (you can expand)
+                }
+                await delay(800);
+                await sock.logout();
+                rmTemp(tempFolder);
+            } else if (connection === 'close' && lastDisconnect?.error?.output?.statusCode !== 401) {
+                rmTemp(tempFolder);
+            }
+        });
+        
+        // close after 25 secs cleanup
+        setTimeout(() => {
+            if (fs.existsSync(tempFolder)) rmTemp(tempFolder);
+            sock.ws?.close();
+        }, 28000);
+        
+    } catch (err) {
+        console.error("Pair error:", err);
+        if (!res.headersSent) res.status(500).json({ code: "SERVICE_ERROR" });
+        rmTemp(tempFolder);
     }
-    
-    return await Arslan_MD_PAIR_CODE();
 });
 
 module.exports = router;
