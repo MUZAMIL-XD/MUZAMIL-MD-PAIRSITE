@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>MUZAMIL-MD • Pair Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <title>MUZAMIL-MD Pair Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -14,260 +14,270 @@
     }
 
     body {
-      background: #0b0f1c;
+      background: linear-gradient(135deg, #0a0f1e 0%, #0a0a0a 100%);
       font-family: 'Inter', sans-serif;
-      color: #eef5ff;
-      padding: 1.5rem;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 20px;
     }
 
-    /* glassmorphic card */
-    .pair-card {
-      max-width: 500px;
-      width: 100%;
-      margin: 0 auto;
-      background: rgba(18, 25, 45, 0.75);
-      backdrop-filter: blur(12px);
-      border-radius: 2rem;
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 255, 255, 0.1);
-      padding: 2rem 1.5rem;
+    /* Top Header */
+    .site-header {
       text-align: center;
-      transition: 0.2s;
+      padding: 20px 15px;
+      background: linear-gradient(135deg, #0a0f1e, #0d1117);
+      border-bottom: 2px solid #00ffcc;
+      margin-bottom: 30px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 20px rgba(0, 255, 204, 0.2);
     }
 
-    .badge {
-      display: inline-block;
-      background: #00c3ff20;
-      padding: 0.3rem 0.9rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 600;
+    .site-header h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00ffcc, #00aaff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       letter-spacing: 1px;
-      color: #7ee0ff;
-      border: 0.5px solid #2affdd55;
+    }
+
+    .site-header p {
+      color: #8892b0;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    /* Main Card */
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .pair-card {
+      background: rgba(18, 25, 45, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      border: 1px solid rgba(0, 255, 204, 0.3);
+      padding: 2rem 1.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .profile-icon {
+      text-align: center;
       margin-bottom: 1.5rem;
     }
 
-    h1 {
-      font-size: 1.9rem;
+    .profile-icon i {
+      font-size: 4rem;
+      color: #00ffcc;
+      filter: drop-shadow(0 0 10px #00ffcc);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(135deg, #fff, #6effe8);
+      background: linear-gradient(135deg, #fff, #00ffcc);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       margin-bottom: 0.5rem;
-      letter-spacing: -0.3px;
     }
 
-    .sub {
-      color: #9aa9c1;
-      margin-bottom: 1.8rem;
-      font-size: 0.9rem;
-    }
-
-    .profile-icon {
-      background: #111a2e;
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 1.4rem auto;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #0ff;
-      box-shadow: 0 0 15px #0ff3;
-    }
-
-    .profile-icon i {
-      font-size: 3.8rem;
-      color: #0ff;
-      filter: drop-shadow(0 0 6px cyan);
+    .subtitle {
+      text-align: center;
+      color: #a0b3d9;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
     }
 
     .input-group {
-      margin: 1.5rem 0;
-      text-align: left;
+      margin-bottom: 1.5rem;
     }
 
     .input-group label {
-      font-size: 0.85rem;
-      font-weight: 500;
       display: block;
+      color: #00ffcc;
+      font-size: 0.85rem;
+      font-weight: 600;
       margin-bottom: 8px;
-      letter-spacing: 0.3px;
-      color: #b9d0ff;
     }
 
-    .number-field {
+    .input-group input {
       width: 100%;
       padding: 1rem 1.2rem;
-      background: #0f1629;
-      border: 1.5px solid #2a3650;
+      background: #0f1424;
+      border: 1.5px solid #1f2a48;
       border-radius: 60px;
       color: white;
       font-size: 1rem;
-      font-weight: 500;
       outline: none;
-      transition: 0.2s;
+      transition: all 0.3s;
     }
 
-    .number-field:focus {
-      border-color: #0ff;
-      box-shadow: 0 0 0 3px #0ff2;
+    .input-group input:focus {
+      border-color: #00ffcc;
+      box-shadow: 0 0 0 3px rgba(0, 255, 204, 0.2);
     }
 
     .btn-primary {
       width: 100%;
-      background: linear-gradient(95deg, #0af, #0c6);
+      background: linear-gradient(95deg, #00ccaa, #0088ff);
       border: none;
       padding: 1rem;
-      font-weight: 700;
-      font-size: 1rem;
       border-radius: 60px;
       color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
-      cursor: pointer;
-      transition: 0.2s;
-      margin-top: 0.8rem;
-      box-shadow: 0 6px 14px rgba(0, 160, 255, 0.2);
+      gap: 10px;
     }
 
     .btn-primary:active {
       transform: scale(0.97);
     }
 
-    .result-area {
+    .result-box {
       margin-top: 1.8rem;
       background: #0b1022cc;
-      padding: 0.9rem;
-      border-radius: 1.5rem;
-      font-size: 0.9rem;
-      word-break: break-all;
-      border: 1px solid #2c3f6e;
+      padding: 1rem;
+      border-radius: 20px;
+      text-align: center;
+      border-left: 4px solid #00ffcc;
+    }
+
+    .code-display {
+      font-family: monospace;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      color: #00ffcc;
+      margin: 10px 0;
     }
 
     .copy-btn {
+      width: 100%;
       background: #1f2a48;
       border: none;
-      margin-top: 0.8rem;
-      padding: 0.7rem;
+      padding: 0.8rem;
       border-radius: 40px;
-      color: #bbffff;
+      color: white;
       font-weight: 600;
-      width: 100%;
+      margin-top: 12px;
       cursor: pointer;
       transition: 0.2s;
     }
 
     .footer-note {
-      margin-top: 2rem;
+      text-align: center;
+      margin-top: 1.8rem;
       font-size: 0.7rem;
       color: #5d7199;
-      border-top: 1px dashed #2a3a5a;
-      padding-top: 1.5rem;
     }
 
-    i.fa, i.far, i.fas {
-      pointer-events: none;
+    @media (max-width: 480px) {
+      .pair-card {
+        padding: 1.5rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      .code-display {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+      }
     }
   </style>
 </head>
 <body>
-<div class="pair-card">
-  <div class="profile-icon">
-    <i class="fab fa-whatsapp"></i>
-  </div>
-  <div class="badge">⚡ MUZAMIL-MD OFFICIAL</div>
-  <h1>PAIR SESSION</h1>
-  <div class="sub">Enter your WhatsApp number to receive pairing code</div>
-
-  <div class="input-group">
-    <label><i class="fas fa-phone-alt"></i> 📱 Number (with country code)</label>
-    <input type="tel" id="phoneNumber" class="number-field" placeholder="e.g., 923001234567" value="92">
+  <div class="site-header">
+    <h1>✨ MUZAMIL-MD PAIR SITE ✨</h1>
+    <p>Ultra Fast • Secure • Premium Pairing System</p>
   </div>
 
-  <button class="btn-primary" id="getCodeBtn">
-    <i class="fas fa-key"></i> GET CODE
-  </button>
+  <div class="container">
+    <div class="pair-card">
+      <div class="profile-icon">
+        <i class="fab fa-whatsapp"></i>
+      </div>
+      <h2>Get Pair Code</h2>
+      <div class="subtitle">Enter your WhatsApp number to receive 8-digit code</div>
 
-  <div id="codeResult" class="result-area">
-    <span style="opacity:0.7">✨ Your 8-digit code will appear here</span>
+      <div class="input-group">
+        <label><i class="fas fa-phone"></i> WhatsApp Number</label>
+        <input type="tel" id="phoneNumber" placeholder="923001234567" value="92">
+      </div>
+
+      <button class="btn-primary" id="getCodeBtn">
+        <i class="fas fa-key"></i> GET CODE
+      </button>
+
+      <div class="result-box" id="resultBox">
+        <i class="fas fa-shield-alt"></i> Your code will appear here
+        <div id="codeValue" class="code-display">———</div>
+      </div>
+      <button id="copyCodeBtn" class="copy-btn" style="display: none;">
+        <i class="far fa-copy"></i> COPY CODE
+      </button>
+
+      <div class="footer-note">
+        ⚡ Powered by MUZAMIL-MD | Pairing System v2.0
+      </div>
+    </div>
   </div>
-  <button id="copyCodeBtn" class="copy-btn" style="display: none;"><i class="far fa-copy"></i> COPY CODE</button>
 
-  <div class="footer-note">
-    <i class="fas fa-shield-alt"></i> Secure pairing · MUZAMIL-MD PRO
-  </div>
-</div>
+  <script>
+    const getBtn = document.getElementById('getCodeBtn');
+    const phoneInput = document.getElementById('phoneNumber');
+    const codeValueDiv = document.getElementById('codeValue');
+    const copyBtn = document.getElementById('copyCodeBtn');
+    let currentCode = '';
 
-<script>
-  const getBtn = document.getElementById('getCodeBtn');
-  const phoneInput = document.getElementById('phoneNumber');
-  const resultDiv = document.getElementById('codeResult');
-  const copyBtn = document.getElementById('copyCodeBtn');
-  let currentCode = '';
-
-  getBtn.addEventListener('click', async () => {
-    let rawNumber = phoneInput.value.trim();
-    if (!rawNumber) {
-      resultDiv.innerHTML = '<span style="color:#ffaa88;">⚠️ Please enter your number</span>';
-      copyBtn.style.display = 'none';
-      return;
-    }
-    // Remove any non-digit characters
-    let cleanNumber = rawNumber.replace(/\D/g, '');
-    if (!cleanNumber.startsWith('92') && !cleanNumber.startsWith('1') && cleanNumber.length > 10) {
-      // just let it pass but ensure minimal length
-    }
-    if (cleanNumber.length < 10) {
-      resultDiv.innerHTML = '<span style="color:#ffaa88;">❌ Invalid number (min 10 digits)</span>';
-      copyBtn.style.display = 'none';
-      return;
-    }
-
-    resultDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Requesting code ...';
-    copyBtn.style.display = 'none';
-
-    try {
-      // 👉 backend endpoint (pair.js runs on /pair?number=xxxx)
-      const response = await fetch(`/pair?number=${cleanNumber}`);
-      const data = await response.json();
-      if (data.code) {
-        currentCode = data.code;
-        resultDiv.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span><i class="fas fa-unlock-alt"></i> <strong>PAIR CODE:</strong> </span>
-            <span style="font-family: monospace; font-size: 1.4rem; font-weight: bold; letter-spacing: 2px;">${currentCode}</span>
-          </div>
-        `;
-        copyBtn.style.display = 'block';
-      } else {
-        resultDiv.innerHTML = '<span style="color:#ff8866;">⚠️ Service unavailable, try again</span>';
+    getBtn.addEventListener('click', async () => {
+      let number = phoneInput.value.trim().replace(/\D/g, '');
+      if (number.length < 10) {
+        codeValueDiv.innerText = '❌ Invalid';
+        codeValueDiv.style.color = '#ff8888';
         copyBtn.style.display = 'none';
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      resultDiv.innerHTML = '<span style="color:#ff8866;">❌ Network error. Check connection</span>';
-      copyBtn.style.display = 'none';
-    }
-  });
 
-  copyBtn.addEventListener('click', () => {
-    if (currentCode) {
-      navigator.clipboard.writeText(currentCode);
-      copyBtn.innerHTML = '<i class="fas fa-check"></i> COPIED!';
-      setTimeout(() => {
-        copyBtn.innerHTML = '<i class="far fa-copy"></i> COPY CODE';
-      }, 2000);
-    }
-  });
-</script>
+      codeValueDiv.innerText = '⏳ ...';
+      codeValueDiv.style.color = '#00ffcc';
+      copyBtn.style.display = 'none';
+
+      try {
+        const response = await fetch(`/pair?number=${number}`);
+        const data = await response.json();
+        
+        if (data.code) {
+          currentCode = data.code;
+          codeValueDiv.innerText = currentCode;
+          codeValueDiv.style.color = '#00ffcc';
+          copyBtn.style.display = 'block';
+        } else {
+          codeValueDiv.innerText = '⚠️ Error';
+          codeValueDiv.style.color = '#ff8888';
+        }
+      } catch (err) {
+        codeValueDiv.innerText = '❌ Network Error';
+        codeValueDiv.style.color = '#ff8888';
+      }
+    });
+
+    copyBtn.addEventListener('click', () => {
+      if (currentCode) {
+        navigator.clipboard.writeText(currentCode);
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> COPIED!';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="far fa-copy"></i> COPY CODE';
+        }, 2000);
+      }
+    });
+  </script>
 </body>
 </html>
