@@ -1,23 +1,35 @@
+const { makeid } = require('./id');
 const express = require('express');
-const { default: makeWASocket, useMultiFileAuthState, Browsers, delay, makeCacheableSignalKeyStore } = require('@whiskeysockets/baileys');
-const pino = require('pino');
 const fs = require('fs');
-const { makeid } = require('./id');   // make sure id.js exports makeid()
+const pino = require('pino');
+const {
+    default: makeWASocket,
+    useMultiFileAuthState,
+    delay,
+    makeCacheableSignalKeyStore,
+    Browsers
+} = require('@whiskeysockets/baileys');
+
 let router = express.Router();
 
-function rmTemp(dir) {
-    if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
+function removeTemp(dir) {
+    if (fs.existsSync(dir)) {
+        fs.rmSync(dir, { recursive: true, force: true });
+    }
 }
 
 router.get('/', async (req, res) => {
     let number = req.query.number;
-    if (!number) return res.status(400).json({ error: "number required" });
+    if (!number) {
+        return res.status(400).json({ error: "Number required" });
+    }
 
-    let sessionId = makeid(6);
-    const tempFolder = `./temp/${sessionId}`;
+    const sessionId = makeid(6);
+    const tempDir = `./temp/${sessionId}`;
     
     try {
-        const { state, saveCreds } = await useMultiFileAuthState(tempFolder);
+        const { state, saveCreds } = await useMultiFileAuthState(tempDir);
+        
         const sock = makeWASocket({
             auth: {
                 creds: state.creds,
@@ -29,48 +41,39 @@ router.get('/', async (req, res) => {
         });
 
         sock.ev.on('creds.update', saveCreds);
+
+        // Request pairing code
+        const cleanNum = number.toString().replace(/\D/g, '');
+        const pairingCode = await sock.requestPairingCode(cleanNum);
         
-        // request pairing code
-        let pairingCode = null;
-        if (!sock.authState.creds.registered) {
-            const cleanNum = number.replace(/\D/g, '');
-            pairingCode = await sock.requestPairingCode(cleanNum);
-            if (!res.headersSent) {
-                res.json({ code: pairingCode });
-            }
-        } else {
-            return res.json({ code: "ALREADY_REGISTERED" });
+        if (!res.headersSent) {
+            return res.json({ code: pairingCode });
         }
 
-        // listen for connection open to save creds eventually
+        // Cleanup after connection
         sock.ev.on('connection.update', async (update) => {
             const { connection, lastDisconnect } = update;
             if (connection === 'open') {
-                await delay(2000);
-                // save creds as base64 but not mandatory for pairing response
-                let credsPath = `${tempFolder}/creds.json`;
-                if (fs.existsSync(credsPath)) {
-                    let b64 = fs.readFileSync(credsPath).toString('base64');
-                    // optional: send to bot owner or store (you can expand)
-                }
-                await delay(800);
+                await delay(3000);
                 await sock.logout();
-                rmTemp(tempFolder);
+                removeTemp(tempDir);
             } else if (connection === 'close' && lastDisconnect?.error?.output?.statusCode !== 401) {
-                rmTemp(tempFolder);
+                removeTemp(tempDir);
             }
         });
-        
-        // close after 25 secs cleanup
+
+        // Auto cleanup after 30 seconds
         setTimeout(() => {
-            if (fs.existsSync(tempFolder)) rmTemp(tempFolder);
+            removeTemp(tempDir);
             sock.ws?.close();
-        }, 28000);
-        
+        }, 30000);
+
     } catch (err) {
-        console.error("Pair error:", err);
-        if (!res.headersSent) res.status(500).json({ code: "SERVICE_ERROR" });
-        rmTemp(tempFolder);
+        console.error("Pair error:", err.message);
+        if (!res.headersSent) {
+            return res.status(500).json({ code: "SERVICE_ERROR" });
+        }
+        removeTemp(tempDir);
     }
 });
 
