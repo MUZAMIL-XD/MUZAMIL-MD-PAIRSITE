@@ -1,117 +1,72 @@
-const PastebinAPI = require('pastebin-js'),
-pastebin = new PastebinAPI('EMWTMkQAVfJa9kM-MRUrxd5Oku1U7pgL')
-const {makeid} = require('./id');
+const { makeid } = require('./id');
 const QRCode = require('qrcode');
 const express = require('express');
-const path = require('path');
 const fs = require('fs');
-let router = express.Router()
-const pino = require("pino");
+const pino = require('pino');
 const {
-	default: Arslan_Tech,
-	useMultiFileAuthState,
-	jidNormalizedUser,
-	Browsers,
-	delay,
-	makeInMemoryStore,
+    default: makeWASocket,
+    useMultiFileAuthState,
+    Browsers,
+    delay,
 } = require("@whiskeysockets/baileys");
 
-function removeFile(FilePath) {
-	if (!fs.existsSync(FilePath)) return false;
-	fs.rmSync(FilePath, {
-		recursive: true,
-		force: true
-	})
-};
-const {
-	readFile
-} = require("node:fs/promises")
+let router = express.Router();
+
+function removeTemp(dir) {
+    if (fs.existsSync(dir)) {
+        fs.rmSync(dir, { recursive: true, force: true });
+    }
+}
+
 router.get('/', async (req, res) => {
-	const id = makeid();
-	async function Arslan_MD_QR_CODE() {
-		const {
-			state,
-			saveCreds
-		} = await useMultiFileAuthState('./temp/' + id)
-		try {
-			let Qr_Code_By_Arslan_Tech = Arslan_Tech({
-				auth: state,
-				printQRInTerminal: false,
-				logger: pino({
-					level: "silent"
-				}),
-				browser: Browsers.macOS("Desktop"),
-			});
+    const sessionId = makeid(6);
+    const tempDir = `./temp/${sessionId}`;
+    
+    try {
+        const { state, saveCreds } = await useMultiFileAuthState(tempDir);
+        
+        const sock = makeWASocket({
+            auth: state,
+            printQRInTerminal: false,
+            logger: pino({ level: 'silent' }),
+            browser: Browsers.macOS("Desktop"),
+        });
 
-			Qr_Code_By_Arslan_Tech.ev.on('creds.update', saveCreds)
-			Qr_Code_By_Arslan_Tech.ev.on("connection.update", async (s) => {
-				const {
-					connection,
-					lastDisconnect,
-					qr
-				} = s;
-				if (qr) await res.end(await QRCode.toBuffer(qr));
-				if (connection == "open") {
-					await delay(5000);
-					let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
-					await delay(800);
-				   let b64data = Buffer.from(data).toString('base64');
-				   let session = await Qr_Code_By_Arslan_Tech.sendMessage(Qr_Code_By_Arslan_Tech.user.id, { text: 'MUZAMIL-MD~' + b64data });
-	
-				   let Arslan_MD_TEXT = `
-╔════════════════════◇
-║『 SESSION CONNECTED』
-║ ✨MUZAMIL-MD🔷
-║ ✨MUZAMIL-MD OFFICIAL🔷
-╚════════════════════╝
-
-
----
-
-╔════════════════════◇
-║『 YOU'VE CHOSEN MUZAMIL-MD 』
-║ -Set the session ID in Heroku:
-║ - SESSION_ID: 
-╚════════════════════╝
-╔════════════════════◇
-║ 『••• _V𝗶𝘀𝗶𝘁 𝗙𝗼𝗿_H𝗲𝗹𝗽 •••』
-║❍ 𝐘𝐨𝐮𝐭𝐮𝐛𝐞: youtube.com/@TeamRedXhacker
-║❍ 𝐎𝐰𝐧𝐞𝐫: 923237045919
-║❍ 𝐑𝐞𝐩𝐨: https://github.com/MUZAMIL-XD/MUZAMIL-MD 
-║❍ 𝐖𝐚𝐆𝗿𝐨𝐮𝐩: https://whatsapp.com/channel/0029VbCkm3rAe5VzCYLtNb2u
-║❍ 𝐖𝐚𝐂𝐡𝐚𝐧𝐧𝐞𝐥: https://whatsapp.com/channel/0029VbCkm3rAe5VzCYLtNb2u
-║❍ 𝐈𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦: _https://www.instagram.com/TeamRedXhacker
-║ ☬ ☬ ☬ ☬
-╚═════════════════════╝
-𒂀 Enjoy MUZAMIL-MD
-
-
----
-
-Don't Forget To Give Star⭐ To My Repo
-______________________________`;
-	 await Qr_Code_By_Arslan_Tech.sendMessage(Qr_Code_By_Arslan_Tech.user.id,{text:Arslan_MD_TEXT},{quoted:session})
-
-
-
-					await delay(100);
-					await Qr_Code_By_Arslan_Tech.ws.close();
-					return await removeFile("temp/" + id);
-				} else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
-					await delay(10000);
-					Arslan_MD_QR_CODE();
-				}
-			});
-		} catch (err) {
-			if (!res.headersSent) {
-				await res.json({
-					code: "Service is Currently Unavailable"
-				});
-			}
-			console.log(err);
-			await removeFile("temp/" + id);
-		}
-	}
-	return await Arslan_MD_QR_CODE()
+        sock.ev.on('creds.update', saveCreds);
+        
+        sock.ev.on("connection.update", async (update) => {
+            const { connection, lastDisconnect, qr } = update;
+            
+            if (qr && !res.headersSent) {
+                const qrBuffer = await QRCode.toBuffer(qr);
+                return res.end(qrBuffer);
+            }
+            
+            if (connection === "open") {
+                await delay(3000);
+                await sock.logout();
+                removeTemp(tempDir);
+            } else if (connection === "close" && lastDisconnect?.error?.output?.statusCode !== 401) {
+                removeTemp(tempDir);
+            }
+        });
+        
+        // Timeout cleanup
+        setTimeout(() => {
+            if (!res.headersSent) {
+                res.status(504).json({ error: "Timeout" });
+            }
+            removeTemp(tempDir);
+            sock.ws?.close();
+        }, 60000);
+        
+    } catch (err) {
+        console.error("QR Error:", err.message);
+        if (!res.headersSent) {
+            res.status(500).json({ error: "Service unavailable" });
+        }
+        removeTemp(tempDir);
+    }
 });
-module.exports = router
+
+module.exports = router;
