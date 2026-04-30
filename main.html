@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>MUZAMIL-MD | Premium Pair Site</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <title>MUZAMIL-MD • Pair Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -14,448 +14,260 @@
     }
 
     body {
-      font-family: 'Inter', 'Space Grotesk', sans-serif;
-      background: radial-gradient(ellipse at 30% 40%, #0c111d 0%, #05070f 100%);
+      background: #0b0f1c;
+      font-family: 'Inter', sans-serif;
+      color: #eef5ff;
+      padding: 1.5rem;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      position: relative;
-    }
-
-    /* Animated Background Glow */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 70% 30%, rgba(0, 230, 118, 0.08), transparent 60%);
-      pointer-events: none;
-    }
-
-    /* Main Card */
-    .card {
-      max-width: 520px;
-      width: 100%;
-      background: rgba(15, 20, 32, 0.85);
-      backdrop-filter: blur(20px);
-      border-radius: 48px;
-      padding: 40px 32px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 230, 118, 0.15);
-      transition: all 0.3s ease;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Logo Section */
-    .logo-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 28px;
-    }
-
-    .logo-wrapper {
-      width: 90px;
-      height: 90px;
-      background: linear-gradient(135deg, #1a2a3a, #0f1420);
-      border-radius: 50%;
-      display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 0 3px rgba(0, 230, 118, 0.2);
-      margin-bottom: 16px;
     }
 
-    .logo-img {
-      width: 78px;
-      height: 78px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #00e676;
-    }
-
-    .site-title {
-      font-size: 34px;
-      font-weight: 800;
-      font-family: 'Space Grotesk', monospace;
-      background: linear-gradient(135deg, #FFFFFF, #00e676, #00b0ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.5px;
-      margin-bottom: 6px;
-    }
-
-    .site-badge {
-      font-size: 12px;
-      font-weight: 600;
-      color: #00e676;
-      background: rgba(0, 230, 118, 0.12);
-      padding: 5px 14px;
-      border-radius: 30px;
-      letter-spacing: 0.5px;
-    }
-
-    /* Status Badge */
-    .status-badge {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 10px 20px;
-      border-radius: 50px;
-      width: fit-content;
-      margin: 20px auto 28px;
-    }
-
-    .pulse-dot {
-      width: 10px;
-      height: 10px;
-      background: #00e676;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #00e676;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(1.2); }
-    }
-
-    .status-text {
-      font-size: 13px;
-      font-weight: 600;
-      color: #b0c4de;
-      letter-spacing: 0.5px;
-    }
-
-    /* Input Group */
-    .input-group {
-      margin-bottom: 28px;
-    }
-
-    .input-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #ccd6f0;
-      margin-bottom: 12px;
-    }
-
-    .input-label i {
-      color: #00e676;
-      font-size: 14px;
-    }
-
-    .number-input {
+    /* glassmorphic card */
+    .pair-card {
+      max-width: 500px;
       width: 100%;
-      padding: 18px 20px;
-      font-size: 18px;
-      font-weight: 500;
-      font-family: 'Inter', monospace;
-      background: #0a0e18;
-      border: 1.5px solid #252d3d;
-      border-radius: 28px;
-      color: #ffffff;
-      outline: none;
-      transition: all 0.2s;
+      margin: 0 auto;
+      background: rgba(18, 25, 45, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 255, 255, 0.1);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: 0.2s;
     }
 
-    .number-input:focus {
-      border-color: #00e676;
-      box-shadow: 0 0 0 4px rgba(0, 230, 118, 0.15);
-    }
-
-    .number-input::placeholder {
-      color: #3a4158;
-      font-weight: 400;
-    }
-
-    /* Get Code Button */
-    .get-code-btn {
-      width: 100%;
-      padding: 18px;
-      font-size: 18px;
-      font-weight: 700;
-      font-family: 'Space Grotesk', sans-serif;
-      background: linear-gradient(105deg, #00e676 0%, #00b0ff 100%);
-      border: none;
+    .badge {
+      display: inline-block;
+      background: #00c3ff20;
+      padding: 0.3rem 0.9rem;
       border-radius: 40px;
-      color: #0a0e1a;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      margin-bottom: 28px;
-      box-shadow: 0 6px 20px rgba(0, 230, 118, 0.35);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #7ee0ff;
+      border: 0.5px solid #2affdd55;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff, #6effe8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.3px;
+    }
+
+    .sub {
+      color: #9aa9c1;
+      margin-bottom: 1.8rem;
+      font-size: 0.9rem;
+    }
+
+    .profile-icon {
+      background: #111a2e;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.4rem auto;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 15px #0ff3;
     }
 
-    .get-code-btn i {
-      font-size: 18px;
+    .profile-icon i {
+      font-size: 3.8rem;
+      color: #0ff;
+      filter: drop-shadow(0 0 6px cyan);
     }
 
-    .get-code-btn:active {
+    .input-group {
+      margin: 1.5rem 0;
+      text-align: left;
+    }
+
+    .input-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+      color: #b9d0ff;
+    }
+
+    .number-field {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      background: #0f1629;
+      border: 1.5px solid #2a3650;
+      border-radius: 60px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .number-field:focus {
+      border-color: #0ff;
+      box-shadow: 0 0 0 3px #0ff2;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(95deg, #0af, #0c6);
+      border: none;
+      padding: 1rem;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 60px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 0.8rem;
+      box-shadow: 0 6px 14px rgba(0, 160, 255, 0.2);
+    }
+
+    .btn-primary:active {
       transform: scale(0.97);
     }
 
-    .get-code-btn:disabled {
-      opacity: 0.6;
-      transform: none;
-    }
-
-    /* Result Box */
-    .result-box {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(4px);
-      border-radius: 32px;
-      padding: 24px;
-      border: 1px solid rgba(0, 230, 118, 0.25);
-      margin-top: 8px;
-    }
-
-    .result-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-
-    .result-header i {
-      color: #00e676;
-      font-size: 20px;
-    }
-
-    .result-header span {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #8a99b4;
-    }
-
-    .code-display {
-      font-family: 'Space Grotesk', monospace;
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-align: center;
-      color: #00ffaa;
-      background: #05080f;
-      padding: 20px;
-      border-radius: 24px;
+    .result-area {
+      margin-top: 1.8rem;
+      background: #0b1022cc;
+      padding: 0.9rem;
+      border-radius: 1.5rem;
+      font-size: 0.9rem;
       word-break: break-all;
-      margin-bottom: 20px;
-      text-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+      border: 1px solid #2c3f6e;
     }
 
     .copy-btn {
-      width: 100%;
-      background: transparent;
-      border: 1.5px solid #00e676;
-      padding: 14px;
+      background: #1f2a48;
+      border: none;
+      margin-top: 0.8rem;
+      padding: 0.7rem;
       border-radius: 40px;
-      color: #00e676;
-      font-weight: 700;
-      font-size: 15px;
+      color: #bbffff;
+      font-weight: 600;
+      width: 100%;
       cursor: pointer;
       transition: 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-family: 'Inter', sans-serif;
     }
 
-    .copy-btn:active {
-      background: rgba(0, 230, 118, 0.12);
-      transform: scale(0.98);
-    }
-
-    /* Footer Note */
     .footer-note {
-      font-size: 12px;
-      color: #4a5570;
-      text-align: center;
-      margin-top: 24px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+      margin-top: 2rem;
+      font-size: 0.7rem;
+      color: #5d7199;
+      border-top: 1px dashed #2a3a5a;
+      padding-top: 1.5rem;
     }
 
-    .footer-note i {
-      font-size: 10px;
-      color: #00e676;
-    }
-
-    /* Loading Spinner */
-    .spinner-btn {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(10, 14, 26, 0.3);
-      border-top-color: #0a0e1a;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .hidden {
-      display: none;
+    i.fa, i.far, i.fas {
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <!-- Logo + Title -->
-    <div class="logo-section">
-      <div class="logo-wrapper">
-        <img src="https://ibb.co/FbrF6NHd" alt="MUZAMIL-MD Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/78?text=M'">
-      </div>
-      <div class="site-title">MUZAMIL-MD</div>
-      <div class="site-badge">✦ ULTRA PAIRING ✦</div>
-    </div>
+<div class="pair-card">
+  <div class="profile-icon">
+    <i class="fab fa-whatsapp"></i>
+  </div>
+  <div class="badge">⚡ MUZAMIL-MD OFFICIAL</div>
+  <h1>PAIR SESSION</h1>
+  <div class="sub">Enter your WhatsApp number to receive pairing code</div>
 
-    <!-- Status -->
-    <div class="status-badge">
-      <div class="pulse-dot"></div>
-      <div class="status-text">SYSTEM READY • 24/7 ACTIVE</div>
-    </div>
-
-    <!-- Input Field -->
-    <div class="input-group">
-      <div class="input-label">
-        <i class="fas fa-phone-alt"></i>
-        <span>WHATSAPP NUMBER</span>
-      </div>
-      <input type="tel" id="phoneNumber" class="number-input" placeholder="923xxxxxxxxx" value="">
-    </div>
-
-    <!-- Get Code Button -->
-    <button id="getCodeBtn" class="get-code-btn">
-      <i class="fas fa-key"></i> GET PAIR CODE <i class="fas fa-arrow-right"></i>
-    </button>
-
-    <!-- Result Section (hidden initially) -->
-    <div id="resultSection" class="result-box hidden">
-      <div class="result-header">
-        <i class="fas fa-check-circle"></i>
-        <span>PAIRING CODE GENERATED</span>
-      </div>
-      <div id="codeValue" class="code-display">------</div>
-      <button id="copyCodeBtn" class="copy-btn">
-        <i class="fas fa-copy"></i> COPY CODE
-      </button>
-    </div>
-
-    <div class="footer-note">
-      <i class="fas fa-shield-alt"></i>
-      <span>Enter number with country code • Instant pairing</span>
-    </div>
+  <div class="input-group">
+    <label><i class="fas fa-phone-alt"></i> 📱 Number (with country code)</label>
+    <input type="tel" id="phoneNumber" class="number-field" placeholder="e.g., 923001234567" value="92">
   </div>
 
-  <script>
-    // DOM elements
-    const phoneInput = document.getElementById('phoneNumber');
-    const getBtn = document.getElementById('getCodeBtn');
-    const resultSection = document.getElementById('resultSection');
-    const codeValueSpan = document.getElementById('codeValue');
-    const copyBtn = document.getElementById('copyCodeBtn');
-    let currentCode = '';
+  <button class="btn-primary" id="getCodeBtn">
+    <i class="fas fa-key"></i> GET CODE
+  </button>
 
-    // Loading state
-    function setLoading(isLoading) {
-      if (isLoading) {
-        getBtn.innerHTML = '<div class="spinner-btn"></div> PROCESSING...';
-        getBtn.disabled = true;
-        resultSection.classList.add('hidden');
+  <div id="codeResult" class="result-area">
+    <span style="opacity:0.7">✨ Your 8-digit code will appear here</span>
+  </div>
+  <button id="copyCodeBtn" class="copy-btn" style="display: none;"><i class="far fa-copy"></i> COPY CODE</button>
+
+  <div class="footer-note">
+    <i class="fas fa-shield-alt"></i> Secure pairing · MUZAMIL-MD PRO
+  </div>
+</div>
+
+<script>
+  const getBtn = document.getElementById('getCodeBtn');
+  const phoneInput = document.getElementById('phoneNumber');
+  const resultDiv = document.getElementById('codeResult');
+  const copyBtn = document.getElementById('copyCodeBtn');
+  let currentCode = '';
+
+  getBtn.addEventListener('click', async () => {
+    let rawNumber = phoneInput.value.trim();
+    if (!rawNumber) {
+      resultDiv.innerHTML = '<span style="color:#ffaa88;">⚠️ Please enter your number</span>';
+      copyBtn.style.display = 'none';
+      return;
+    }
+    // Remove any non-digit characters
+    let cleanNumber = rawNumber.replace(/\D/g, '');
+    if (!cleanNumber.startsWith('92') && !cleanNumber.startsWith('1') && cleanNumber.length > 10) {
+      // just let it pass but ensure minimal length
+    }
+    if (cleanNumber.length < 10) {
+      resultDiv.innerHTML = '<span style="color:#ffaa88;">❌ Invalid number (min 10 digits)</span>';
+      copyBtn.style.display = 'none';
+      return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Requesting code ...';
+    copyBtn.style.display = 'none';
+
+    try {
+      // 👉 backend endpoint (pair.js runs on /pair?number=xxxx)
+      const response = await fetch(`/pair?number=${cleanNumber}`);
+      const data = await response.json();
+      if (data.code) {
+        currentCode = data.code;
+        resultDiv.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span><i class="fas fa-unlock-alt"></i> <strong>PAIR CODE:</strong> </span>
+            <span style="font-family: monospace; font-size: 1.4rem; font-weight: bold; letter-spacing: 2px;">${currentCode}</span>
+          </div>
+        `;
+        copyBtn.style.display = 'block';
       } else {
-        getBtn.innerHTML = '<i class="fas fa-key"></i> GET PAIR CODE <i class="fas fa-arrow-right"></i>';
-        getBtn.disabled = false;
+        resultDiv.innerHTML = '<span style="color:#ff8866;">⚠️ Service unavailable, try again</span>';
+        copyBtn.style.display = 'none';
       }
+    } catch (err) {
+      console.error(err);
+      resultDiv.innerHTML = '<span style="color:#ff8866;">❌ Network error. Check connection</span>';
+      copyBtn.style.display = 'none';
     }
+  });
 
-    // Show code
-    function showCode(code) {
-      currentCode = code;
-      codeValueSpan.textContent = code;
-      resultSection.classList.remove('hidden');
+  copyBtn.addEventListener('click', () => {
+    if (currentCode) {
+      navigator.clipboard.writeText(currentCode);
+      copyBtn.innerHTML = '<i class="fas fa-check"></i> COPIED!';
+      setTimeout(() => {
+        copyBtn.innerHTML = '<i class="far fa-copy"></i> COPY CODE';
+      }, 2000);
     }
-
-    // Copy functionality
-    copyBtn.addEventListener('click', async () => {
-      if (!currentCode) return;
-      try {
-        await navigator.clipboard.writeText(currentCode);
-        copyBtn.innerHTML = '<i class="fas fa-check"></i> COPIED!';
-        copyBtn.style.borderColor = '#00ff88';
-        copyBtn.style.color = '#00ff88';
-        setTimeout(() => {
-          copyBtn.innerHTML = '<i class="fas fa-copy"></i> COPY CODE';
-          copyBtn.style.borderColor = '#00e676';
-          copyBtn.style.color = '#00e676';
-        }, 2000);
-      } catch {
-        alert('Copy manually: ' + currentCode);
-      }
-    });
-
-    // Request pairing code from backend
-    async function requestPairCode() {
-      let rawNumber = phoneInput.value.trim();
-      if (!rawNumber) {
-        alert('❌ Please enter your WhatsApp number');
-        return;
-      }
-
-      let cleanNumber = rawNumber.replace(/[^0-9+]/g, '');
-      if (cleanNumber.startsWith('+')) cleanNumber = cleanNumber.substring(1);
-      
-      if (cleanNumber.length < 10) {
-        alert('❌ Enter valid number with country code (e.g., 923xxxxxxxxx)');
-        return;
-      }
-
-      setLoading(true);
-
-      try {
-        const response = await fetch(`/pair?number=${cleanNumber}`);
-        const data = await response.json();
-        
-        if (data.code && data.code !== 'Service Currently Unavailable') {
-          showCode(data.code);
-        } else {
-          alert('⚠️ Service busy, please try again');
-          resultSection.classList.add('hidden');
-        }
-      } catch (error) {
-        console.error(error);
-        alert('⚠️ Network error. Make sure backend is running.');
-        resultSection.classList.add('hidden');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    getBtn.addEventListener('click', requestPairCode);
-    phoneInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') requestPairCode();
-    });
-  </script>
+  });
+</script>
 </body>
-  </html>
+</html>
