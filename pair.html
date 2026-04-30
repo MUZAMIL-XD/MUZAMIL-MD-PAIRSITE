@@ -3,203 +3,206 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>MUZAMIL-MD · PAIR</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <title>MUZAMIL-MD • Pair Session</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    *{ margin:0; padding:0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background: radial-gradient(circle at 10% 20%, #0a0f1e, #03060c);
+      background: radial-gradient(circle at 30% 10%, #0a0f1e, #020408);
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1.2rem;
+      padding: 20px;
     }
+
     .pair-container {
-      max-width: 480px;
+      max-width: 500px;
       width: 100%;
-      background: rgba(12, 20, 33, 0.8);
-      backdrop-filter: blur(10px);
-      border-radius: 2rem;
-      border: 1px solid #2effdd55;
-      padding: 2rem 1.5rem;
-      box-shadow: 0 25px 40px -12px black;
+      background: rgba(15, 25, 45, 0.9);
+      backdrop-filter: blur(12px);
+      border-radius: 32px;
+      border: 1px solid rgba(0, 255, 204, 0.4);
+      padding: 2rem;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
     }
-    .top-logo {
+
+    .logo {
       text-align: center;
       margin-bottom: 1.5rem;
     }
-    .top-logo i {
-      font-size: 3rem;
-      background: linear-gradient(145deg, #0ff, #1e90ff);
+
+    .logo i {
+      font-size: 3.5rem;
+      color: #00ffcc;
+      filter: drop-shadow(0 0 8px #00ffcc);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, #00ffcc);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
-    h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
+
+    .badge {
       text-align: center;
-      background: linear-gradient(120deg, #fff, #0ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: #00ffcc;
+      font-size: 0.75rem;
+      margin: 8px 0 25px;
+      letter-spacing: 1px;
     }
-    .desc {
-      text-align: center;
-      font-size: 0.85rem;
-      color: #9ab3d5;
-      margin: 0.3rem 0 1.8rem;
-    }
-    .field {
+
+    .input-field {
       background: #0f1424;
       border-radius: 60px;
       display: flex;
       align-items: center;
       padding: 0.2rem 0.2rem 0.2rem 1.2rem;
-      border: 1px solid #2c3a60;
-      margin-bottom: 1rem;
+      border: 1px solid #1f2a48;
+      margin-bottom: 1.2rem;
     }
-    .field i {
-      color: #4affff;
-      font-size: 1.2rem;
+
+    .input-field i {
+      color: #00ffcc;
     }
-    .field input {
+
+    .input-field input {
       background: transparent;
       border: none;
-      padding: 1rem 0.8rem;
+      padding: 1rem;
       width: 100%;
       color: white;
       font-size: 1rem;
       outline: none;
     }
-    button.primary {
+
+    button {
       width: 100%;
-      background: linear-gradient(95deg, #0cc, #0a6);
+      background: linear-gradient(95deg, #00ccaa, #0088ff);
       border: none;
       padding: 1rem;
-      font-weight: 700;
       border-radius: 60px;
       color: white;
+      font-weight: 700;
       font-size: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
       cursor: pointer;
       transition: 0.2s;
     }
+
     .response-card {
-      background: #07122a;
       margin-top: 1.8rem;
+      background: #0b1022;
       padding: 1rem;
-      border-radius: 1.5rem;
-      text-align: center;
-      border-left: 4px solid cyan;
-    }
-    .code-number {
-      font-family: monospace;
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: 4px;
-      background: #00000055;
-      padding: 0.5rem;
       border-radius: 20px;
-      margin-top: 8px;
-      color: #0ff;
+      text-align: center;
     }
+
+    .pair-code {
+      font-family: monospace;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 5px;
+      color: #00ffcc;
+      margin: 10px 0;
+    }
+
     .copy-action {
       margin-top: 12px;
-      background: #1e2b48;
-      border: none;
-      padding: 8px;
+      background: #1f2a48;
       width: 100%;
-      border-radius: 40px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
+      padding: 0.8rem;
     }
-    hr {
-      margin: 1.4rem 0;
-      border-color: #1f3555;
-    }
-    .footer {
-      font-size: 0.7rem;
-      text-align: center;
-      color: #5f7fb0;
+
+    @media (max-width: 480px) {
+      .pair-container {
+        padding: 1.5rem;
+      }
+      .pair-code {
+        font-size: 1.3rem;
+        letter-spacing: 3px;
+      }
     }
   </style>
 </head>
 <body>
 <div class="pair-container">
-  <div class="top-logo">
+  <div class="logo">
     <i class="fab fa-whatsapp"></i>
   </div>
-  <h2>MUZAMIL-MD</h2>
-  <div class="desc">Enter number → Get code → Pair your device</div>
-  
-  <div class="field">
-    <i class="fas fa-phone"></i>
+  <h1>MUZAMIL-MD PAIR</h1>
+  <div class="badge">⚡ PREMIUM PAIRING SYSTEM ⚡</div>
+
+  <div class="input-field">
+    <i class="fas fa-phone-alt"></i>
     <input type="tel" id="phoneNum" placeholder="923001234567" value="92">
   </div>
-  <button class="primary" id="requestPairBtn">
-    <i class="fas fa-code-branch"></i> REQUEST PAIR CODE
-  </button>
+  
+  <button id="pairBtn"><i class="fas fa-code-branch"></i> REQUEST PAIR CODE</button>
 
-  <div class="response-card" id="responseArea">
-    <i class="fas fa-shield-alt"></i> Your code appears here
-    <div id="codeDisplay" class="code-number">———</div>
+  <div class="response-card">
+    <i class="fas fa-shield-alt"></i> Your 8-digit code:
+    <div id="codeDisplay" class="pair-code">———</div>
   </div>
-  <button id="copyPairCode" class="copy-action" style="display: none;"><i class="far fa-copy"></i> COPY CODE</button>
-  <hr>
-  <div class="footer">🔐 powered by MUZAMIL-MD secure engine</div>
+  <button id="copyPairBtn" class="copy-action" style="display: none;">
+    <i class="far fa-copy"></i> COPY CODE
+  </button>
 </div>
 
 <script>
-  const phoneField = document.getElementById('phoneNum');
-  const reqBtn = document.getElementById('requestPairBtn');
-  const codeDisplayDiv = document.getElementById('codeDisplay');
-  const copyCodeBtn = document.getElementById('copyPairCode');
+  const pairBtn = document.getElementById('pairBtn');
+  const phoneNum = document.getElementById('phoneNum');
+  const codeDisplay = document.getElementById('codeDisplay');
+  const copyPairBtn = document.getElementById('copyPairBtn');
   let latestCode = '';
 
-  reqBtn.addEventListener('click', async () => {
-    let number = phoneField.value.trim().replace(/\D/g, '');
-    if (number.length < 9) {
-      codeDisplayDiv.innerText = '❌ invalid';
-      codeDisplayDiv.style.color = '#ff8888';
-      copyCodeBtn.style.display = 'none';
+  pairBtn.addEventListener('click', async () => {
+    let number = phoneNum.value.trim().replace(/\D/g, '');
+    if (number.length < 10) {
+      codeDisplay.innerText = '❌ Invalid';
+      codeDisplay.style.color = '#ff8888';
+      copyPairBtn.style.display = 'none';
       return;
     }
-    codeDisplayDiv.innerText = '⏳ loading...';
-    codeDisplayDiv.style.color = '#aaffdd';
-    copyCodeBtn.style.display = 'none';
-    
+
+    codeDisplay.innerText = '⏳ ...';
+    codeDisplay.style.color = '#00ffcc';
+    copyPairBtn.style.display = 'none';
+
     try {
       const response = await fetch(`/pair?number=${number}`);
       const data = await response.json();
       if (data.code) {
         latestCode = data.code;
-        codeDisplayDiv.innerText = latestCode;
-        codeDisplayDiv.style.color = '#0ff';
-        copyCodeBtn.style.display = 'block';
+        codeDisplay.innerText = latestCode;
+        copyPairBtn.style.display = 'block';
       } else {
-        codeDisplayDiv.innerText = 'error: retry';
-        codeDisplayDiv.style.color = '#ff9999';
+        codeDisplay.innerText = '⚠️ Error';
+        codeDisplay.style.color = '#ff8888';
       }
     } catch (err) {
-      codeDisplayDiv.innerText = 'network fail';
-      codeDisplayDiv.style.color = '#ff8888';
+      codeDisplay.innerText = '❌ Failed';
+      codeDisplay.style.color = '#ff8888';
     }
   });
 
-  copyCodeBtn.addEventListener('click', () => {
+  copyPairBtn.addEventListener('click', () => {
     if (latestCode) {
       navigator.clipboard.writeText(latestCode);
-      copyCodeBtn.innerHTML = '<i class="fas fa-check"></i> Copied !';
+      copyPairBtn.innerHTML = '<i class="fas fa-check"></i> COPIED!';
       setTimeout(() => {
-        copyCodeBtn.innerHTML = '<i class="far fa-copy"></i> COPY CODE';
-      }, 1800);
+        copyPairBtn.innerHTML = '<i class="far fa-copy"></i> COPY CODE';
+      }, 2000);
     }
   });
 </script>
